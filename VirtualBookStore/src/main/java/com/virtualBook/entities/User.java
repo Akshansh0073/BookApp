@@ -2,12 +2,7 @@ package com.virtualBook.entities;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -29,22 +24,31 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Order> order;
-	
+
+	@Embedded
+	private Address address;
 	
 	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public User(String user_id, @NotBlank String name, @NotNull String email, @NotNull String password,
-			List<Order> order) {
-		super();
+
+	public User(String user_id, String name, String email, String password, List<Order> order, Address address) {
 		this.user_id = user_id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.order = order;
+		this.address = address;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public List<Order> getOrder() {

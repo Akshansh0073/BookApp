@@ -1,10 +1,14 @@
 package com.order.details.OrderDetails.ExternalClasses;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
 
 public class Order {
 
 	private String id;
+
+	@JsonIgnore
 	private double amount;
 	private OrderStatus status;
 	private User user;

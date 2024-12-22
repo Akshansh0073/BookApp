@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -47,10 +48,13 @@ public class UserServiceImpl implements UserService {
 
 		User oldUser = userRepo.findById(user_id)
 				.orElseThrow(() -> new UserResourceNotFoundException("User", "id", user_id));
+
 		User user = modelMapper.map(userDto, User.class);
 		oldUser.setName(user.getName());
 		oldUser.setEmail(user.getEmail());
 		oldUser.setPassword(user.getPassword());
+		oldUser.setAddress(user.getAddress());
+
 		User newUser = userRepo.save(oldUser);
 
 		return modelMapper.map(newUser, UserDto.class);
@@ -83,21 +87,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto getUserById(String user_id) {
 
-		String cacheKey = "userById";
-
-		UserDto cachedUser = (UserDto) redisTemplate.opsForValue().get(cacheKey);
-
-		if (cachedUser != null) {
-			redisTemplate.expire(cacheKey, Duration.ofMinutes(10));
-			System.out.println("Fetching data from Redis cache...");
-			return cachedUser; // Return data from Redis cache
-		}
-
-		System.out.println("Fetching data from database...");
+//		String cacheKey = "userById";
+//
+//		UserDto cachedUser = (UserDto) redisTemplate.opsForValue().get(cacheKey);
+//
+//		if (cachedUser != null) {
+//			redisTemplate.expire(cacheKey, Duration.ofMinutes(10));
+//			System.out.println("Fetching data from Redis cache...");
+//			return cachedUser; // Return data from Redis cache
+//		}
+//
+//		System.out.println("Fetching data from database...");
 		User user = userRepo.findById(user_id)
 				.orElseThrow(() -> new UserResourceNotFoundException("User", "id", user_id));
 
-		redisTemplate.opsForValue().set(cacheKey, modelMapper.map(user, UserDto.class));
+//		redisTemplate.opsForValue().set(cacheKey, modelMapper.map(user, UserDto.class));
 
 		return modelMapper.map(user, UserDto.class);
 	}
