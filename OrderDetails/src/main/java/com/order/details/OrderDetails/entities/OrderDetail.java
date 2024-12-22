@@ -19,12 +19,28 @@ public class OrderDetail {
 	@DBRef
 	private List<BookResponse> books;
 	private Order order;
-	
+
+//	public BookResponse getBooks() {
+//		return books;
+//	}
+//
+//	public void setBooks(BookResponse books) {
+//		this.books = books;
+//	}
+
 	public OrderDetail() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
+//	public OrderDetail(String id, int quantity, double amount, BookResponse books, Order order) {
+//		this.id = id;
+//		this.quantity = quantity;
+//		this.amount = amount;
+//		this.books = books;
+//		this.order = order;
+//	}
+
 	public OrderDetail(String id, int quantity, double amount, List<BookResponse> books, Order order) {
 		super();
 		this.id = id;
@@ -58,6 +74,7 @@ public class OrderDetail {
 	public void setBooks(List<BookResponse> books) {
 		this.books = books;
 	}
+
 	public Order getOrder() {
 		return order;
 	}

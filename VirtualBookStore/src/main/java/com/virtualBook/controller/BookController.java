@@ -24,7 +24,7 @@ public class BookController {
 	@Autowired
 	private BookServiceImpl bookService;
 	
-	@PostMapping("/{category_id}")
+	@PostMapping("category/{category_id}")
 	public ResponseEntity<BookDto> createBook
 	(@PathVariable Long category_id,@RequestBody BookDto bookDto) {
 	

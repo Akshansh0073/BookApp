@@ -10,14 +10,14 @@ public class OrderDetailDto {
 	private String id;
 	private int quantity;
 	private double amount;
-	private List<Book> books;
+	private List<BookResponseDto> books;
 	private Order order;
 	
 	public OrderDetailDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public OrderDetailDto(String id, int quantity, double amount, List<Book> books, Order order) {
+	public OrderDetailDto(String id, int quantity, double amount, List<BookResponseDto> books, Order order) {
 		super();
 		this.id = id;
 		this.quantity = quantity;
@@ -43,10 +43,10 @@ public class OrderDetailDto {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public List<Book> getBooks() {
+	public List<BookResponseDto> getBooks() {
 		return books;
 	}
-	public void setBooks(List<Book> books) {
+	public void setBooks(List<BookResponseDto> books) {
 		this.books = books;
 	}
 	public Order getOrder() {

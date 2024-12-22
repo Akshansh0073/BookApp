@@ -27,7 +27,7 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	@PostMapping("/{userId}")
+	@PostMapping("user/{userId}")
 	public ResponseEntity<OrderDto> createOrder
 	(@PathVariable String userId,@RequestBody OrderDto orderDto)
 	{
