@@ -87,27 +87,35 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto getUserById(String user_id) {
 
-//		String cacheKey = "userById";
-//
-//		UserDto cachedUser = (UserDto) redisTemplate.opsForValue().get(cacheKey);
-//
-//		if (cachedUser != null) {
-//			redisTemplate.expire(cacheKey, Duration.ofMinutes(10));
-//			System.out.println("Fetching data from Redis cache...");
-//			return cachedUser; // Return data from Redis cache
-//		}
-//
-//		System.out.println("Fetching data from database...");
+		String cacheKey = "userById_" + user_id;
+
+		UserDto cachedUser = (UserDto) redisTemplate.opsForValue().get(cacheKey);
+
+		if (cachedUser != null) {
+			redisTemplate.expire(cacheKey, Duration.ofMinutes(10));
+			System.out.println("Fetching data from Redis cache...");
+			return cachedUser; // Return data from Redis cache
+		}
+
+		System.out.println("Fetching data from database...");
 		User user = userRepo.findById(user_id)
 				.orElseThrow(() -> new UserResourceNotFoundException("User", "id", user_id));
 
-//		redisTemplate.opsForValue().set(cacheKey, modelMapper.map(user, UserDto.class));
+		redisTemplate.opsForValue().set(cacheKey, modelMapper.map(user, UserDto.class));
 
 		return modelMapper.map(user, UserDto.class);
 	}
 
 	@Override
 	public String deleteUser(String user_id) {
+
+		String cacheKey = "userById_" + user_id;
+		UserDto cachedUser = (UserDto) redisTemplate.opsForValue().get(cacheKey);
+
+		if (cachedUser != null) {
+			System.out.println("Deleting data from Redis cache...");
+			redisTemplate.delete(cacheKey);
+		}
 		User user = userRepo.findById(user_id)
 				.orElseThrow(() -> new UserResourceNotFoundException("User", "id", user_id));
 		userRepo.delete(user);

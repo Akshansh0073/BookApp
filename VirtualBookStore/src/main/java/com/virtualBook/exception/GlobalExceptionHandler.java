@@ -15,12 +15,20 @@ import com.virtualBook.payload.ApiResponse;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-	@ExceptionHandler({ResourceNotFoundException.class,UserResourceNotFoundException.class})
-	public ResponseEntity<ApiResponse> resourceNotFoundExceptionHandler(ResourceNotFoundException ex){
+	@ExceptionHandler(UserResourceNotFoundException.class)
+	public ResponseEntity<ApiResponse> userResourceNotFoundExceptionHandler(UserResourceNotFoundException ex){
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message, false);
 		return new ResponseEntity<ApiResponse>(apiResponse,HttpStatus.NOT_FOUND);
 		
+	}
+
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<ApiResponse> resourceNotFoundExceptionHandler(ResourceNotFoundException ex){
+		String message = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(message, false);
+		return new ResponseEntity<ApiResponse>(apiResponse,HttpStatus.NOT_FOUND);
+
 	}
 	
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
