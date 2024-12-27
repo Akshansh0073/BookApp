@@ -26,7 +26,6 @@ public class BookResponseController {
 	public ResponseEntity<BookResponseDto>  create
 	(@RequestBody BookResponseDto bookResponse, @RequestParam Long bookId)
 	{
-		System.err.println(bookResponse.getQuantity());
 		BookResponseDto books = service.addBooks(bookResponse, bookId);
 		return new ResponseEntity<BookResponseDto>(books,HttpStatus.CREATED);
 		

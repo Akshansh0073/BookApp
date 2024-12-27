@@ -104,17 +104,17 @@ public class BookServiceImpl implements BookService {
 	
 	public BookDto getBookById(Long book_id) {
 
-//		String cacheKey = "bookById";
-//
-//		BookDto cachedUser = (BookDto) redisTemplate.opsForValue().get(cacheKey);
-//
-//		if (cachedUser != null) {
-//			redisTemplate.expire(cacheKey, Duration.ofMinutes(10));
-//			System.out.println("Fetching data from Redis cache...");
-//			return cachedUser; // Return data from Redis cache
-//		}
-//
-//		System.out.println("Fetching data from database...");
+		String cacheKey = "bookById" + book_id;
+
+		BookDto cachedUser = (BookDto) redisTemplate.opsForValue().get(cacheKey);
+
+		if (cachedUser != null) {
+			redisTemplate.expire(cacheKey, Duration.ofMinutes(10));
+			System.out.println("Fetching data from Redis cache...");
+			return cachedUser; // Return data from Redis cache
+		}
+
+		System.out.println("Fetching data from database...");
 		Book book = bookRepo.findById(book_id)
 				.orElseThrow(() -> new ResourceNotFoundException("Book", "id", book_id));
 		
@@ -123,7 +123,7 @@ public class BookServiceImpl implements BookService {
 		BookDto bookDto = modelMapper.map(book, BookDto.class);
 		bookDto.setCategoryDto(categoryDto);
 		
-//		redisTemplate.opsForValue().set(cacheKey, bookDto);
+		redisTemplate.opsForValue().set(cacheKey, bookDto);
 
 		return bookDto;
 	
