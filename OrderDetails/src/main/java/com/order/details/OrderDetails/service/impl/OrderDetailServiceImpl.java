@@ -39,10 +39,11 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		Order order = service.getOrderById(oId);
 		
 		List<BookResponse> allById = bookRepo.findAllById(bookResponseIds);
-//		System.out.println(allById.get(0).getId());
+		System.out.println(allById.get(0).getId());
 		
 		int totalQuantity = 0;
         double totalAmount = 0.0;
+
 
         // Calculate the total quantity and amount
         for (BookResponse bookResponse : allById) {

@@ -23,8 +23,8 @@ public class OrderDetailController {
 
 	@Autowired
 	private OrderDetailService service;
-	
-	
+
+
 	@PostMapping
 	public ResponseEntity<OrderDetailDto> create
 	(@RequestParam String orderId, @RequestBody List<String> bookResponseIds)
@@ -32,7 +32,7 @@ public class OrderDetailController {
 		OrderDetailDto orderDetail = service.createOrderDetail(orderId,bookResponseIds);
 		return new ResponseEntity<OrderDetailDto>(orderDetail, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/{orderDetailId}")
 	public ResponseEntity<OrderDetailDto> getOrderDetails
 	(@PathVariable String orderDetailId)
@@ -40,6 +40,7 @@ public class OrderDetailController {
 		OrderDetailDto orderDetail = service.getByOrderDetailId(orderDetailId);
 		return new ResponseEntity<OrderDetailDto>(orderDetail, HttpStatus.OK);
 	}
-	
-	
+
+
 }
+
