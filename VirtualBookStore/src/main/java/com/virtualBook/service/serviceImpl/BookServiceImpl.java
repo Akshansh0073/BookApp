@@ -96,7 +96,7 @@ public class BookServiceImpl implements BookService {
 		        return bookDto;
 			 })
 			.collect(Collectors.toList());
-			
+
 			return collect;
 		}
 	}

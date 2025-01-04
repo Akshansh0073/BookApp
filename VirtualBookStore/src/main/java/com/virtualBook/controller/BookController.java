@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/books/")
+@RequestMapping("/books")
 public class BookController {
 	
 	@Autowired
 	private BookServiceImpl bookService;
 	
-	@PostMapping("category/{category_id}")
+	@PostMapping("/category/{category_id}")
 	public ResponseEntity<BookDto> createBook
 	(@PathVariable Long category_id,@RequestBody BookDto bookDto) {
 	

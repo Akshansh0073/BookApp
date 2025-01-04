@@ -20,20 +20,20 @@ import com.virtualBook.payload.UserDto;
 import com.virtualBook.service.UserService;
 
 @RestController
-@RequestMapping("/users/")
+@RequestMapping("/users")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping("/")
+	@PostMapping
 	public ResponseEntity<UserDto> saveUser(@RequestBody UserDto userDto) {
 		UserDto saveUser = userService.saveUser(userDto);
 		return new ResponseEntity<>(saveUser,HttpStatus.CREATED);
 	}
 	
 	
-	@GetMapping("/")
+	@GetMapping
 	public ResponseEntity<List<UserDto>> getAllUsers() {
 		return new ResponseEntity<List<UserDto>>
 		(userService.getAllUser(), HttpStatus.OK);
