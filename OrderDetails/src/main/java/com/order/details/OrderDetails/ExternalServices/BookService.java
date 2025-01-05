@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.order.details.OrderDetails.ExternalClasses.Book;
 
-@FeignClient(name = "book-service", url = "http://localhost:8082")
-//@FeignClient(name = "VIRTUALBOOKSTORE")  // should be same as application name
+//@FeignClient(name = "book-service", url = "http://localhost:8082")
+//@FeignClient(name = "VirtualBookStore")  // should be same as application name
+@FeignClient(name = "VirtualBookStore", path = "/books", contextId = "bookServiceClient")
 public interface BookService {
 
-	@GetMapping("/books/book/{id}")
+	@GetMapping("/book/{id}")
 	Book getBookById(@PathVariable("id") Long bookId);
 }
