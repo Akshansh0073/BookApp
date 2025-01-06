@@ -36,5 +36,34 @@ public class BookResponseDto {
 	public void setBook(Book book) {
 		this.book = book;
 	}
-	
+
+	public static class Builder {
+		private String id;
+		private Integer quantity;
+		private Book book;
+
+		public Builder id(String id) {
+			this.id = id;
+			return this;
+		}
+
+		public Builder quantity(Integer quantity) {
+			this.quantity = quantity;
+			return this;
+		}
+
+		public Builder book(Book book) {
+			this.book = book;
+			return this;
+		}
+
+		public BookResponseDto build() {
+			return new BookResponseDto(id, quantity, book);
+		}
+	}
+
+	// Static factory method to initiate the builder
+	public static Builder builder() {
+		return new Builder();
+	}
 }
