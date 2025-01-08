@@ -1,7 +1,6 @@
 package com.order.details.OrderDetails.controller;
 
 
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,22 +27,12 @@ public class BookResponseController {
 	Logger logger = LoggerFactory.getLogger(BookResponseController.class);
 	
 	@PostMapping
-	@CircuitBreaker(name="bookResponse_book_breaker", fallbackMethod = "bookResponseBookFallback")
 	public ResponseEntity<BookResponseDto>  create
 	(@RequestBody BookResponseDto bookResponse, @RequestParam Long bookId)
 	{
 		BookResponseDto books = service.addBooks(bookResponse, bookId);
 		return new ResponseEntity<BookResponseDto>(books,HttpStatus.CREATED);
 		
-	}
-
-	public ResponseEntity<BookResponseDto>  bookResponseBookFallback
-			(@RequestBody BookResponseDto bookResponse, @RequestParam Long bookId,Exception ex)
-	{
-		logger.info("Fallback is executed because service is down", ex.getMessage());
-		BookResponseDto book = BookResponseDto.builder().id("1000").quantity(0).book(null).build();
-		return new ResponseEntity<BookResponseDto>(book,HttpStatus.REQUEST_TIMEOUT);
-
 	}
 	
 	@GetMapping("/{id}")

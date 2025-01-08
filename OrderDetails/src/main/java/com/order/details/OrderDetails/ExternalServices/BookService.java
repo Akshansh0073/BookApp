@@ -8,7 +8,7 @@ import com.order.details.OrderDetails.ExternalClasses.Book;
 
 //@FeignClient(name = "book-service", url = "http://localhost:8082")
 //@FeignClient(name = "VirtualBookStore")  // should be same as application name
-@FeignClient(name = "VirtualBookStore", path = "/books", contextId = "bookServiceClient")
+@FeignClient(name = "VirtualBookStore", path = "/books", contextId = "bookServiceClient", fallback = BookServiceFallback.class)
 public interface BookService {
 
 	@GetMapping("/book/{id}")

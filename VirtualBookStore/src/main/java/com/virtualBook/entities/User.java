@@ -1,10 +1,10 @@
 package com.virtualBook.entities;
 
-import java.util.List;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.List;
 
 @Entity
 public class User {
@@ -17,6 +17,7 @@ public class User {
 	private String name;
 	
 	@NotNull
+
 	private String email;
 	
 	@NotNull
